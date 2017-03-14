@@ -425,8 +425,8 @@ function dragula (initialContainers, options) {
     }
     var rect = _item.getBoundingClientRect();
     _mirror = _item.cloneNode(true);
-    if (options.emptyMirror) { _mirror.innerHtml = ''; }
-    
+    if (options.emptyMirror) { _mirror.innerHTML = ''; }
+
     _mirror.style.width = getRectWidth(rect) + 'px';
     _mirror.style.height = getRectHeight(rect) + 'px';
     classes.rm(_mirror, 'gu-transit');
