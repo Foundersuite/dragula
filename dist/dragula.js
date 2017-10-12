@@ -92,6 +92,24 @@ function dragula (initialContainers, options) {
     drake.on('over', spillOver).on('out', spillOut);
   }
 
+  // Drag & Drop Scroll:: https://trello.com/c/aHOBj1gW/534-when-moving-a-card-up-a-column-column-does-not-scroll
+  // https://github.com/bevacqua/dragula/issues/327
+  drake.on('drag',function(el,source){
+        var h = $(window).height();
+        $(document).mousemove(function(e) {
+            var mousePosition = e.pageY - $(window).scrollTop();
+            var topRegion = 280;
+            var bottomRegion = h - 280;
+            if(e.which == 1 && (mousePosition < topRegion || mousePosition > bottomRegion)){    // e.wich = 1 => click down !
+                var distance = e.clientY - h / 2;
+                distance = distance * 0.1; // <- velocity
+                $(document).scrollTop( distance + $(document).scrollTop()) ;
+            }else{
+                $(document).unbind('mousemove');
+            }
+        });
+    });
+
   events();
 
   return drake;
